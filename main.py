@@ -8,7 +8,7 @@ class MainPage(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
         self.response.out.write(index_content())
 
-class NewStatus(webapp2.RedirectHandler):
+class NewStatus(webapp2.RequestHandler):
     def post(self):
         status = self.request.get('content')
         success, error = new_status(status)
