@@ -12,7 +12,8 @@ def new_status(status):
     sec = base64.encodestring('%s:%s' % (USERNAME, PASSWORD)).replace('\n', '')
     req.add_header('Authorization', 'Basic %s' % sec)
     try:
-        urllib2.urlopen(req)
+        f = urllib2.urlopen(req)
+        f.close()
     except Exception as err:
         if hasattr(err, 'code'):
             return False, str(err.code)
