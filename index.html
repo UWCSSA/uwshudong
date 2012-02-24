@@ -2,27 +2,63 @@
 <html>
 <head>
     <title>滑大树洞</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 </head>
 <body>
     <div id="wrapper">
-        <div class="right">
+        <div id="left">
             <iframe width="100%" height="600" class="share_self"
                     frameborder="0" scrolling="no"
                     src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=600&fansRow=2&ptype=1&speed=0&skin=-1&isTitle=0&noborder=1&isWeibo=1&isFans=1&uid=2613606201&verifier=17ffd493&colors=d6f3f7,ffffff,000000,6f3198,ecfbfd&dpc=1">
             </iframe>
         </div>
-        <div class="left">
-            <form action="/new" method="post">
-                <div>
-                    <textarea name="content" rows="3" cols="60"></textarea>
+        <div id="right">
+            <div id="head_words">
+                <p>你有什么心底的小秘密想找人倾诉吗？</p>
+                <p>你有什么话语想偷偷地讲给他/她听么？</p>
+                <p>你有什么不顺心的事不愿让父母担心吗？</p>
+                <p>树洞会帮你把这些小秘密匿名着永远地保存下去...</p>
+
+                <p>
+                    <br />你想对树洞说些什么？ <span id="num_words_left">你还可以再输入<span>140</span>个字</span>
+                </p>
+            </div>
+            <div class="clear"></div>
+            <form id="post_weibo" action="return false;" method="post">
+                <div class="control-group" id="input_div">
+                    <textarea name="content" id="input_content">aaa</textarea>
                 </div>
-                <div>
-                    <input type="submit" value="发布新微博">
+                <div id="below_input">
+                    <div id="submit_button_div">
+                        <button type="button" class="btn btn-large" id="submit_button_id">匿名发布</button>
+                    </div>
+                    <div>
+                        <script type="text/javascript"
+                                src="http://www.google.com/recaptcha/api/challenge?k=6LeAEM4SAAAAAAh6AYgQaiHRroWD-bDwtUdD6x0R">
+                        </script>
+                        <noscript>
+                            <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LeAEM4SAAAAAAh6AYgQaiHRroWD-bDwtUdD6x0R"
+                                    height="130" width="450" frameborder="0"></iframe><br>
+                            <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                            <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+                        </noscript>
+                    </div>
                 </div>
             </form>
+            <div class="clear"></div>
+            <div id="notification">test</div>
+            <div id="readme">
+                <p><i class="icon-ok-circle"></i> 滑大树洞现为BETA测试阶段，如有任何问题欢迎联络 <a target="mailto:uwcssa.it@gmail.com">uwcssa.it@gmail.com</a></p>
+                <p><i class="icon-remove-circle"></i> 请发布广告等不恰当内容的用户自重...</p>
+
+            </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>

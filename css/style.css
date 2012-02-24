@@ -1,13 +1,55 @@
+body {
+    font-family: Verdana, 'Microsoft Yahei', Lucida, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
 #wrapper {
     width: 1000px;
+    height: 600px;
 }
 
-.left {
-    width: 50%;
+#left {
+    width: 500px;
     float: left;
+    padding: 10px;
 }
 
-.right {
-    width: 50%;
+#right {
+    width: 450px;
+    float: left;
+    padding: 10px;
+}
+
+.clear {
+    clear: both;
+}
+
+#input_content {
+    width: 440px;
+    height: 100px;
+    resize: none;
+    margin: 5px 0px 5px 0px;
+    font-size: 16px;
+}
+
+#num_words_left {
     float: right;
+}
+
+#submit_button_div {
+    margin-top: 5px;
+    float: right;
+}
+
+#below_input {
+    margin-top: 10px;
+}
+
+#readme {
+    position: absolute;
+    bottom: 75px;
+}
+
+#notification {
+    padding: 10px;
 }
