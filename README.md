@@ -2,6 +2,8 @@ http://bbs.uwcssa.com/plugin.php?id=shudong
 
 Please contact uwcssa.it@gmail.com for more info.
 
+Licensed under AGPL v3 or (at your option) any later version.
+
     UW Shudong. GAE application for anonymous weibo.
     Copyright (C) 2012  UWCSSA <uwcssa.it@gmail.com>
 
