@@ -23,7 +23,7 @@ import json
 
 from weibo import new_status
 from recaptcha import valid_recaptcha
-#from anti_spam import is_spam
+from anti_spam import is_spam
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -48,10 +48,8 @@ class NewWeibo(webapp2.RequestHandler):
         challenge = self.request.get('challenge')
         response  = self.request.get('response')
         remoteip  = self.request.remote_addr
-#        useragent = self.request.headers['User-Agent'] \
-#                if 'User-Agent' in self.request.headers else 'None'
-#        referer   = self.request.headers['Referer'] \
-#                if 'Referer' in self.request.headers else 'None'
+        useragent = self.request.headers['User-Agent'] \
+                if 'User-Agent' in self.request.headers else 'Unknown'
 
 
         if 0 == len(status):
@@ -66,12 +64,12 @@ class NewWeibo(webapp2.RequestHandler):
             self.return_json(False, u"验证码错误！请重新输入")
             return
 
-#        if is_spam(status, remoteip, useragent):
+#        # all chinese comments are treated as spam by akismet?
+#        if is_spam(remoteip, status, useragent):
 #            self.return_json(False, u"内容错误！spam")
 #            return
-#        self.return_json(True, u'not spam')
+#        self.return_json(True, 'not spam')
 #        return
-
 
         success, error = new_status(status)
         if success:
