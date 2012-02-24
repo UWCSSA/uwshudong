@@ -22,7 +22,7 @@
                 <p>树洞会帮你把这些小秘密永远地保存下去...</p>
 
                 <p>
-                    <br />你想对树洞说些什么？ <span id="num_words_left">你还可以再输入<span>140</span>个字</span>
+                    <br />你想对树洞说些什么？ <span id="num_words_left">你还可以再输入<span id="num_left">140</span>个字</span>
                 </p>
             </div>
             <div class="clear"></div>
@@ -35,6 +35,11 @@
                         <button class="btn btn-large" id="submit_button_id" data-loading-text="发布中..."  data-loading-time='2000'>匿名发布</button>
                     </div>
                     <div>
+                        <script type="text/javascript">
+                            var RecaptchaOptions = {
+                                theme : 'white'
+                            };
+                        </script>
                         <script type="text/javascript"
                                 src="http://www.google.com/recaptcha/api/challenge?k=6LeAEM4SAAAAAAh6AYgQaiHRroWD-bDwtUdD6x0R">
                         </script>

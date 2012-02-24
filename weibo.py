@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from credentials import *
+from credentials import USERNAME, PASSWORD, APP_KEY
 import urllib2, base64
 
-URL = 'https://api.weibo.com/2/statuses/update.json'
-PRE = 'source=' + str(APP_KEY) + '&status='
+WEIBO_URL = 'https://api.weibo.com/2/statuses/update.json'
+DATA_PRE  = 'source=' + str(APP_KEY) + '&status='
 
 def new_status(status):
-    DATA = PRE + status
-    req = urllib2.Request(URL, DATA)
+    DATA = DATA_PRE + status
+    req = urllib2.Request(WEIBO_URL, DATA)
     sec = base64.encodestring('%s:%s' % (USERNAME, PASSWORD)).replace('\n', '')
     req.add_header('Authorization', 'Basic %s' % sec)
     try:
