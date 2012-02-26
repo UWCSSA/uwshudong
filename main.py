@@ -18,8 +18,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import webapp2
-import json
+import webapp2, json, cgi
 
 from weibo import new_status
 from recaptcha import valid_recaptcha
@@ -42,13 +41,13 @@ class NewWeibo(webapp2.RequestHandler):
         self.response.out.write(json.dumps(res))
 
     def post(self):
-        status = self.request.get('status')
+        status = cgi.escape(self.request.get('status'))
         if len(status) > 140:
             status = status[:140]  # only 140 chars in maximum
-        challenge = self.request.get('challenge')
-        response  = self.request.get('response')
-        remoteip  = self.request.remote_addr
-        useragent = self.request.headers['User-Agent'] \
+        challenge = cgi.escape(self.request.get('challenge'))
+        response  = cgi.escape(self.request.get('response'))
+        remoteip  = cgi.escape(self.request.remote_addr)
+        useragent = cgi.escape(self.request.headers['User-Agent']) \
                 if 'User-Agent' in self.request.headers else 'Unknown'
 
 
