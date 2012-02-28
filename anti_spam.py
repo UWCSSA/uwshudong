@@ -17,6 +17,7 @@
 """
 
 from akismet import check_askimet
+from typepad import check_typepad
 from filter import has_bad_words
 
 def is_ascii(s):
@@ -31,4 +32,7 @@ def is_spam(remoteip, comment, user_agent):
     if is_ascii(comment):
         return check_askimet(remoteip, comment, user_agent)
     else:
-        return has_bad_words(comment)
+        if check_typepad(remoteip, comment, user_agent):
+            return True
+        else:
+            return has_bad_words(comment)

@@ -54,13 +54,15 @@ class NewWeibo(webapp2.RequestHandler):
             return
 
         if is_spam(remoteip, status, useragent):
-            self.return_json(False, u"抱歉！发布内容被过滤，请重新尝试")
+            self.return_json(False, u"发布内容被过滤，抱歉！请重新尝试")
             return
 
+#        self.return_json(True, u"不是广告")
+#        return  # NOTICEME
 
         success, error = new_status(status)
         if success:
-            text = u'发表成功！请稍后查看'
+            text = u'发布成功！请稍后查看'
         else:
             if error == '400':
                 text = u'发布失败！输入内容有误'
