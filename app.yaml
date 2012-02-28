@@ -6,8 +6,8 @@ threadsafe: true
 
 handlers:
 - url: /robots.txt
-  static_files: robots.txt
-  upload: robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
 
 - url: /css
   static_dir: css
@@ -18,5 +18,9 @@ handlers:
 - url: /img
   static_dir: img
 
+- url: /new
+  script: new.app
+
 - url: /.*
-  script: main.app
+  static_files: static/index.html
+  upload: static/index.html

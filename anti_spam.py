@@ -13,34 +13,22 @@
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import urllib, urllib2
-from credentials import AKISMET_API_KEY, AKISMET_BLOG_URL
+from akismet import check_askimet
+from filter import has_bad_words
 
-AKISMET_URL = 'http://' + AKISMET_API_KEY + '.rest.akismet.com/1.1/comment-check'
-AKISMET_AGENT  = 'Weibo/1.0 | UW Shudong/1.0'
+def is_ascii(s):
+    try:
+        s.decode('ascii')
+    except Exception:
+        return False
+    else:
+        return True
 
 def is_spam(remoteip, comment, user_agent):
-    "seems akismet treats every chinese comment as spam, so it's useless"
-    data = {'blog': AKISMET_BLOG_URL,
-            'user_ip': remoteip,
-            'user_agent': user_agent}
-    data = urllib.urlencode(data)
-    data = data + '&comment_content=' + comment
-    req = urllib2.Request(AKISMET_URL, data)
-    req.add_header('User-Agent', AKISMET_AGENT)
-    req.add_header("Content-type", "application/x-www-form-urlencoded; charset=UTF-8")
-    f = urllib2.urlopen(req)
-    result = f.read()
-    f.close()
-
-    if 'true' == result:
-        return True
+    if is_ascii(comment):
+        return check_askimet(remoteip, comment, user_agent)
     else:
-        return False
-
-
-if __name__ == '__main__':
-    print AKISMET_URL
+        return has_bad_words(comment)

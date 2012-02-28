@@ -15,7 +15,7 @@
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import webapp2, json, cgi
@@ -24,19 +24,9 @@ from weibo import new_status
 from recaptcha import valid_recaptcha
 from anti_spam import is_spam
 
-class MainPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/html; charset=utf-8'
-        with open("index.html") as html_file:
-            html_content = html_file.read()
-        self.response.out.write(html_content)
-
-
 class NewWeibo(webapp2.RequestHandler):
     def return_json(self, success, text):
-        res = {'success': success}
-        res['text'] = text
-
+        res = {'success': success, 'text': text}
         self.response.headers['Content-Type'] = 'application/json; charset=utf-8'
         self.response.out.write(json.dumps(res))
 
@@ -51,8 +41,8 @@ class NewWeibo(webapp2.RequestHandler):
                 if 'User-Agent' in self.request.headers else 'Unknown'
 
 
-        if 0 == len(status):
-            self.return_json(False, u'发布错误！不能发布空消息')
+        if not len(status):
+            self.return_json(False, u'不能发布空消息！')
             return
 
         if len(challenge) == 0 or len(response) == 0:
@@ -63,12 +53,10 @@ class NewWeibo(webapp2.RequestHandler):
             self.return_json(False, u"验证码错误！请重新输入")
             return
 
-#        # all chinese comments are treated as spam by akismet?
-#        if is_spam(remoteip, status, useragent):
-#            self.return_json(False, u"内容错误！spam")
-#            return
-#        self.return_json(True, 'not spam')
-#        return
+        if is_spam(remoteip, status, useragent):
+            self.return_json(False, u"抱歉！发布内容被过滤，请重新尝试")
+            return
+
 
         success, error = new_status(status)
         if success:
@@ -82,4 +70,4 @@ class NewWeibo(webapp2.RequestHandler):
         self.return_json(success, text)
 
 
-app = webapp2.WSGIApplication([('/', MainPage), ('/new', NewWeibo)], debug = True)
+app = webapp2.WSGIApplication([('/new', NewWeibo)], debug = True)

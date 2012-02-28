@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
     UW Shudong. GAE application for anonymous weibo.
     Copyright (C) 2012  UWCSSA <uwcssa.it@gmail.com>
@@ -16,23 +18,21 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from credentials import PRIVATE_KEY
+from bad_words import BAD_WORDS_LIST
 
-import urllib2, urllib
+def has_bad_words(s):
+    """
+    a very simple filter
+    """
+    for word in BAD_WORDS_LIST:
+        if -1 != s.find(word):
+            return True
+    return False
 
-RECAPTCHA_URL = "http://www.google.com/recaptcha/api/verify"
 
-def valid_recaptcha(remoteip, challenge, response):
-    data = {'privatekey': PRIVATE_KEY,
-            'remoteip': remoteip,
-            'challenge': challenge,
-            'response': response}
-    data = urllib.urlencode(data)
-    f = urllib2.urlopen(RECAPTCHA_URL, data)
-    result = f.read()
-    f.close()
+if __name__ == '__main__':
+    sentence = u'这是一个禁播的电影'
+    print has_bad_words(sentence)
 
-    if 'true' == result.splitlines()[0]:
-        return True
-    else:
-        return False
+
+

@@ -30,8 +30,8 @@ $(document).ready(function(){
 
         var weibo_text = $('#input_content').val();
 
-        var recaptcha_challenge = $('input#recaptcha_challenge_field').val();
-        var recaptcha_response  = $('input#recaptcha_response_field').val();
+        var recaptcha_challenge = Recaptcha.get_challenge();
+        var recaptcha_response  = Recaptcha.get_response();
 
         $.post("/new", "status=" + weibo_text + '&challenge=' + recaptcha_challenge + '&response=' + recaptcha_response,
             process_response, "json"

@@ -1,3 +1,4 @@
 *.pyc
 credential*
+bad_*
 .idea

@@ -16,23 +16,34 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from credentials import PRIVATE_KEY
+import urllib, urllib2
+from credentials import AKISMET_API_KEY, AKISMET_BLOG_URL
 
-import urllib2, urllib
+AKISMET_URL = 'http://' + AKISMET_API_KEY + '.rest.akismet.com/1.1/comment-check'
+AKISMET_AGENT  = 'Weibo/1.0 | UW Shudong/1.0'
 
-RECAPTCHA_URL = "http://www.google.com/recaptcha/api/verify"
-
-def valid_recaptcha(remoteip, challenge, response):
-    data = {'privatekey': PRIVATE_KEY,
-            'remoteip': remoteip,
-            'challenge': challenge,
-            'response': response}
+def check_askimet(remoteip, comment, user_agent):
+    """
+    seems akismet treats every chinese comment as spam, so it's useless
+    return True if the comment is spam; False if not
+    """
+    data = {'blog': AKISMET_BLOG_URL,
+            'user_ip': remoteip,
+            'user_agent': user_agent}
     data = urllib.urlencode(data)
-    f = urllib2.urlopen(RECAPTCHA_URL, data)
+    data = data + '&comment_content=' + comment
+    req = urllib2.Request(AKISMET_URL, data)
+    req.add_header('User-Agent', AKISMET_AGENT)
+    req.add_header("Content-type", "application/x-www-form-urlencoded; charset=UTF-8")
+    f = urllib2.urlopen(req)
     result = f.read()
     f.close()
 
-    if 'true' == result.splitlines()[0]:
+    if 'true' == result:
         return True
     else:
         return False
+
+
+if __name__ == '__main__':
+    print AKISMET_URL
