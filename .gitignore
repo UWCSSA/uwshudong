@@ -2,3 +2,5 @@
 credential*
 bad_*
 .idea
+*.swp
+*~
